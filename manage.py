@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-"""ابزار خط فرمان Django برای کارهای مدیریتی."""
 import os
 import sys
 

@@ -1,39 +1,68 @@
 services:
+
   db:
     image: postgres:17.11-trixie
+
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-bahram}
       POSTGRES_USER: ${POSTGRES_USER:-bahram}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-bahram123}
+
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
       interval: 3s
       timeout: 3s
       retries: 15
 
+
+  pgadmin:
+    image: dpage/pgadmin4:9.18
+
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-admin@example.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin123}
+
+    ports:
+      - "5050:80"
+
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+    depends_on:
+      db:
+        condition: service_healthy
+
+
   web:
     build: .
+
     command: sh -c "python manage.py migrate --noinput && python manage.py runserver 0.0.0.0:8000"
+
     volumes:
       - .:/app
+
     ports:
       - "8000:8000"
+
     environment:
       DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:-dev-only-insecure-key}
       DJANGO_DEBUG: ${DJANGO_DEBUG:-1}
       DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS:-localhost,127.0.0.1}
+
       POSTGRES_DB: ${POSTGRES_DB:-bahram}
       POSTGRES_USER: ${POSTGRES_USER:-bahram}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-bahram123}
       POSTGRES_HOST: db
       POSTGRES_PORT: "5432"
+
     depends_on:
       db:
         condition: service_healthy
 
+
 volumes:
   postgres_data:
-
-#test mahmoudi 
+  pgadmin_data:

@@ -1,8 +1,3 @@
-"""
-ویوهای آموزشی احراز هویت.
-
-هر بخش با شماره‌ی مرحله‌ی آموزشی علامت‌گذاری شده است.
-"""
 from django.contrib import messages
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
@@ -19,7 +14,7 @@ User = get_user_model()
 
 
 # ---------------------------------------------------------------------------
-# مرحله ۲: تشخیص لاگین بودن کاربر (هم در قالب، هم در view)
+# مرحله 1: تشخیص لاگین بودن کاربر ()
 # ---------------------------------------------------------------------------
 class HomeView(TemplateView):
     template_name = "accounts/home.html"
@@ -32,7 +27,7 @@ class HomeView(TemplateView):
 
 
 # ---------------------------------------------------------------------------
-# مرحله ۴: ورود با LoginView
+# مرحله ۲: ورود با LoginView
 # ---------------------------------------------------------------------------
 class CustomLoginView(LoginView):
     form_class = LoginForm
@@ -48,7 +43,7 @@ class CustomLoginView(LoginView):
 
 
 # ---------------------------------------------------------------------------
-# مرحله ۶: خروج با LogoutView
+# مرحله ۳: خروج با LogoutView
 # ---------------------------------------------------------------------------
 class CustomLogoutView(LogoutView):
     """
@@ -61,7 +56,7 @@ class CustomLogoutView(LogoutView):
 
 
 # ---------------------------------------------------------------------------
-# مرحله ۷: ثبت‌نام با CreateView
+# مرحله ۴: ثبت‌نام با CreateView
 # ---------------------------------------------------------------------------
 class SignUpView(CreateView):
     form_class = SignUpForm
@@ -75,7 +70,7 @@ class SignUpView(CreateView):
 
 
 # ---------------------------------------------------------------------------
-# مرحله ۴ (مقصد ورود) و ۸: صفحات محافظت‌شده
+# مرحله ۴ (مقصد ورود) و ۵: صفحات محافظت‌شده
 # ---------------------------------------------------------------------------
 class DashboardView(LoginRequiredMixin, TemplateView):
     """نسخه‌ی کلاسی محافظت: LoginRequiredMixin (معادل login_required)."""
@@ -88,8 +83,11 @@ def profile(request):
     return render(request, "accounts/profile.html")
 
 
+
+
+
 # ---------------------------------------------------------------------------
-# مرحله ۵: کوییز   test class DJ8
+# مرحله ۶: کوییز   test class DJ8
 # ---------------------------------------------------------------------------
 QUIZ_QUESTIONS = [
     {
@@ -189,7 +187,7 @@ class QuizView(View):
 
 
 # ---------------------------------------------------------------------------
-# مرحله ۹: دموی تعاملی ماژول auth
+# مرحله ۸: دموی تعاملی ماژول auth
 # ---------------------------------------------------------------------------
 class AuthDemoView(View):
     template_name = "accounts/auth_demo.html"
@@ -251,7 +249,7 @@ class AuthDemoView(View):
 
 
 # ---------------------------------------------------------------------------
-# مرحله ۱۰: معرفی django-allauth (آدرس‌های خود allauth زیر /allauth/ هستند)
+# مرحله ۹: معرفی django-allauth (آدرس‌های خود allauth زیر /allauth/ هستند)
 # ---------------------------------------------------------------------------
 class AllauthInfoView(TemplateView):
     template_name = "accounts/allauth_info.html"
