@@ -1,0 +1,22 @@
+{% extends "accounts/base.html" %}
+{% block title %}خانه{% endblock %}
+{% block content %}
+<div class="p-4 bg-white border rounded-3">
+  <h1 class="h3">به پروژه‌ی آموزشی احراز هویت Django خوش آمدید</h1>
+
+  {# مرحله ۲: تشخیص لاگین بودن در قالب #}
+  {% if user.is_authenticated %}
+    <div class="alert alert-success mt-3">
+      سلام <strong>{{ user.username }}</strong>! شما وارد شده‌اید.
+    </div>
+  {% else %}
+    <div class="alert alert-secondary mt-3">شما مهمان هستید. لطفاً وارد شوید یا ثبت‌نام کنید.</div>
+  {% endif %}
+
+  {# همان بررسی، این بار از طرف view #}
+  <p class="text-muted mb-0">
+    مقدار <code>request.user.is_authenticated</code> در view:
+    <code>{{ view_says_authenticated }}</code>
+  </p>
+</div>
+{% endblock %}

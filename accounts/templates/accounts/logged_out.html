@@ -1,0 +1,10 @@
+{% extends "accounts/base.html" %}
+{% block title %}خروج{% endblock %}
+{% block content %}
+<div class="text-center p-5 bg-white border rounded-3">
+  <h1 class="h4">با موفقیت از سایت خارج شدید</h1>
+  <p class="text-muted">session شما پاک شد.</p>
+  <a href="{% url 'login' %}" class="btn btn-primary">ورود دوباره</a>
+  <a href="{% url 'home' %}" class="btn btn-outline-secondary">صفحه‌ی اصلی</a>
+</div>
+{% endblock %}

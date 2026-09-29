@@ -1,0 +1,70 @@
+{% extends "accounts/base.html" %}
+{% block title %}django-allauth{% endblock %}
+{% block content %}
+<h1 class="h4 mb-3">django-allauth</h1>
+<p>
+  <code>django-allauth</code> یک پکیج خارجی است که روی <code>django.contrib.auth</code> سوار می‌شود
+  و کارهایی را که در مراحل قبل خودمان نوشتیم (ورود، ثبت‌نام، خروج) به‌همراه امکانات بیشتر آماده می‌دهد.
+  در این پروژه فقط <code>allauth.account</code> فعال است و آدرس‌هایش زیر <code>/allauth/</code> قرار دارد،
+  تا بتوانید پیاده‌سازی دستی و allauth را کنار هم مقایسه کنید.
+</p>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-6">
+    <div class="card h-100"><div class="card-body">
+      <h2 class="h6">امتحان کنید</h2>
+      <ul class="mb-0">
+        <li><a href="{% url 'account_signup' %}">ثبت‌نام با allauth</a></li>
+        <li><a href="{% url 'account_login' %}">ورود با allauth (نام کاربری یا ایمیل)</a></li>
+        <li><a href="{% url 'account_reset_password' %}">بازیابی رمز عبور</a></li>
+        {% if user.is_authenticated %}
+          <li><a href="{% url 'account_email' %}">مدیریت ایمیل‌ها</a></li>
+          <li><a href="{% url 'account_change_password' %}">تغییر رمز عبور</a></li>
+        {% endif %}
+      </ul>
+    </div></div>
+  </div>
+  <div class="col-md-6">
+    <div class="card h-100"><div class="card-body">
+      <h2 class="h6">ایمیل‌ها کجا می‌روند؟</h2>
+      <p class="mb-1">در حالت آموزشی ایمیلی ارسال نمی‌شود و متن آن در لاگ چاپ می‌شود:</p>
+      <pre class="bg-light p-2 border rounded small mb-0">docker compose logs -f web</pre>
+    </div></div>
+  </div>
+</div>
+
+<h2 class="h5">مقایسه‌ی پیاده‌سازی دستی و allauth</h2>
+<div class="table-responsive">
+<table class="table table-bordered bg-white align-middle">
+  <thead class="table-light">
+    <tr><th>قابلیت</th><th>پیاده‌سازی دستی ما</th><th>django-allauth</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>ورود</td><td><code>LoginView</code> فقط با نام کاربری</td><td>با نام کاربری یا ایمیل</td></tr>
+    <tr><td>ثبت‌نام</td><td><code>CreateView</code> + <code>UserCreationForm</code></td><td>آماده، با اعتبارسنجی ایمیل یکتا</td></tr>
+    <tr><td>تأیید ایمیل</td><td>ندارد</td><td>دارد (<code>ACCOUNT_EMAIL_VERIFICATION</code>)</td></tr>
+    <tr><td>فراموشی/بازیابی رمز</td><td>ندارد</td><td>دارد</td></tr>
+    <tr><td>مدیریت ایمیل‌ها و تغییر رمز</td><td>ندارد</td><td>دارد</td></tr>
+    <tr><td>ورود با گوگل/گیت‌هاب و ...</td><td>ندارد</td><td>با <code>allauth.socialaccount</code></td></tr>
+    <tr><td>محدودیت تلاش ورود (rate limit)</td><td>ندارد</td><td>پیش‌فرض فعال</td></tr>
+    <tr><td>سفارشی‌سازی ظاهر</td><td>کامل، قالب‌های خودمان</td><td>با جایگزین کردن قالب‌ها (اینجا <code>allauth/layouts/base.html</code>)</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 class="h5 mt-4">آدرس‌های allauth</h2>
+<div class="table-responsive">
+<table class="table table-bordered bg-white">
+  <thead class="table-light"><tr><th>آدرس</th><th>کاربرد</th></tr></thead>
+  <tbody>
+    <tr><td dir="ltr"><code>/allauth/signup/</code></td><td>ثبت‌نام</td></tr>
+    <tr><td dir="ltr"><code>/allauth/login/</code></td><td>ورود</td></tr>
+    <tr><td dir="ltr"><code>/allauth/logout/</code></td><td>خروج (صفحه‌ی تأیید، سپس POST)</td></tr>
+    <tr><td dir="ltr"><code>/allauth/password/reset/</code></td><td>درخواست بازیابی رمز</td></tr>
+    <tr><td dir="ltr"><code>/allauth/password/change/</code></td><td>تغییر رمز (نیاز به ورود)</td></tr>
+    <tr><td dir="ltr"><code>/allauth/email/</code></td><td>افزودن/تأیید/حذف ایمیل (نیاز به ورود)</td></tr>
+    <tr><td dir="ltr"><code>/allauth/confirm-email/&lt;key&gt;/</code></td><td>لینک تأیید ایمیل</td></tr>
+  </tbody>
+</table>
+</div>
+{% endblock %}

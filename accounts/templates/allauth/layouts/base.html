@@ -1,0 +1,4 @@
+{# جایگزین قالب پایه‌ی allauth: همه‌ی صفحه‌های allauth از قالب فارسی/RTL خودمان استفاده می‌کنند #}
+{% extends "accounts/base.html" %}
+{% block title %}{% block head_title %}{% endblock head_title %}{% endblock title %}
+{% block main_class %}allauth-page{% endblock %}

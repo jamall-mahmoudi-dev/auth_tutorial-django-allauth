@@ -1,0 +1,14 @@
+{% extends "accounts/base.html" %}
+{% block title %}پروفایل{% endblock %}
+{% block content %}
+<div class="p-4 bg-white border rounded-3">
+  <h1 class="h4">پروفایل من</h1>
+  <p class="text-muted">این view با <code>@login_required</code> محافظت شده است.</p>
+  <table class="table table-bordered w-auto">
+    <tr><th>نام کاربری</th><td dir="ltr">{{ user.username }}</td></tr>
+    <tr><th>ایمیل</th><td dir="ltr">{{ user.email|default:"—" }}</td></tr>
+    <tr><th>تاریخ عضویت</th><td>{{ user.date_joined|date:"Y/m/d H:i" }}</td></tr>
+    <tr><th>ادمین (is_staff)</th><td>{{ user.is_staff|yesno:"بله,خیر" }}</td></tr>
+  </table>
+</div>
+{% endblock %}

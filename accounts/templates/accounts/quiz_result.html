@@ -1,0 +1,22 @@
+{% extends "accounts/base.html" %}
+{% block title %}نتیجه‌ی کوییز{% endblock %}
+{% block content %}
+<h1 class="h4 mb-3">نتیجه‌ی کوییز</h1>
+<div class="alert alert-primary fs-5">امتیاز شما: {{ score }} از {{ total }}</div>
+{% for r in results %}
+  <div class="card mb-3 border-{% if r.is_correct %}success{% else %}danger{% endif %}">
+    <div class="card-body">
+      <h2 class="h6">{{ forloop.counter }}. {{ r.text }}</h2>
+      <p class="mb-1">
+        پاسخ شما:
+        {% if r.chosen %}{{ r.chosen }}{% else %}<em>بدون پاسخ</em>{% endif %}
+        {% if r.is_correct %}<span class="badge text-bg-success">درست</span>
+        {% else %}<span class="badge text-bg-danger">غلط</span>{% endif %}
+      </p>
+      {% if not r.is_correct %}<p class="mb-1">پاسخ درست: {{ r.correct_answer }}</p>{% endif %}
+      <p class="text-muted small mb-0">{{ r.explanation }}</p>
+    </div>
+  </div>
+{% endfor %}
+<a href="{% url 'quiz' %}" class="btn btn-outline-primary">تلاش دوباره</a>
+{% endblock %}

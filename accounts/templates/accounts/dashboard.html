@@ -1,0 +1,9 @@
+{% extends "accounts/base.html" %}
+{% block title %}داشبورد{% endblock %}
+{% block content %}
+<div class="p-4 bg-white border rounded-3">
+  <h1 class="h4">داشبورد</h1>
+  <p>این صفحه با <code>LoginRequiredMixin</code> محافظت شده است و فقط کاربر لاگین‌شده آن را می‌بیند.</p>
+  <p class="mb-0">نام کاربری: <strong>{{ user.username }}</strong></p>
+</div>
+{% endblock %}
